@@ -1,6 +1,6 @@
 """Cosmological densities like matter density, baryon density, etc.
 """
-from __future__ import print_function, absolute_import
+from __future__ import print_function
 import math
 
 import numpy
@@ -8,9 +8,12 @@ import scipy
 import scipy.special
 import scipy.integrate as si
 
-from . import constants as cc
-from . import distance as cd
-from . distance import get_omega_k_0, set_omega_k_0
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import constants as cc
+import distance as cd
+from distance import get_omega_k_0, set_omega_k_0
 
 def omega_M_z(z, **cosmo):
     """Matter density omega_M as a function of redshift z.

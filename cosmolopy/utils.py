@@ -10,9 +10,12 @@ import scipy
 import scipy.integrate
 import scipy.interpolate
 
-from . import distance as cd
-from . import constants as cc
-from . saveable import Saveable
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import distance as cd
+import constants as cc
+from saveable import Saveable
 
 class AgeSpacedRedshift(Saveable):
     """Set up uniform time array and corresponding redshift array.

@@ -7,11 +7,14 @@ import numpy
 import scipy
 import scipy.integrate as si
 
-from . import perturbation as cp
-from . import distance as cd
-from . import constants as cc
-from . import density as cden
-from . import utils as cu
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import perturbation as cp
+import distance as cd
+import constants as cc
+import density as cden
+import utils as cu
 
 def delta_lambda_delta_dl(z, delta_dl, **cosmo):
     """The Lyman-alpha wavelength shift given light-travel distance.

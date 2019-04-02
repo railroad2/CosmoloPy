@@ -5,7 +5,7 @@ Mostly follows David Hogg's pedagogical paper arXiv:astro-ph/9905116v4 .
 Distance units are Mpc, time units are seconds.
 
 """
-from __future__ import print_function, absolute_import 
+from __future__ import print_function
 import math
 
 import numpy
@@ -14,7 +14,10 @@ import scipy.integrate as si
 import scipy.interpolate
 import scipy.optimize
 
-from . import constants as cc
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import constants as cc
 
 def get_omega_k_0(**cosmo):
     """'Spatial curvature density' omega_k_0 for a cosmology (if needed).
@@ -148,7 +151,7 @@ def comoving_distance(z, z0 = 0, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> d_co = cd.comoving_distance(6., **cosmo)
-    >>> print "Comoving distance to z=6 is %.1f Mpc" % (d_co)
+    >>> print ("Comoving distance to z=6 is %.1f Mpc" % (d_co))
     Comoving distance to z=6 is 8017.8 Mpc
 
     """
@@ -185,7 +188,7 @@ def proper_motion_distance(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> d_M = cd.proper_motion_distance(6., **cosmo)
-    >>> print "Transverse comoving distance to z=6 is %.1f Mpc" % (d_M)
+    >>> print ("Transverse comoving distance to z=6 is %.1f Mpc" % (d_M))
     Transverse comoving distance to z=6 is 8017.8 Mpc
 
     """
@@ -211,7 +214,7 @@ def comoving_distance_transverse(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> d_M = cd.comoving_distance_transverse(6., **cosmo)
-    >>> print "Transverse comoving distance to z=6 is %.1f Mpc" % (d_M)
+    >>> print ("Transverse comoving distance to z=6 is %.1f Mpc" % (d_M))
     Transverse comoving distance to z=6 is 8017.8 Mpc
 
     """
@@ -252,7 +255,7 @@ def angular_diameter_distance(z, z0 = 0, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> d_a = cd.angular_diameter_distance(6., **cosmo)
-    >>> print "Angular diameter distance = %.1f Mpc" % (d_a)
+    >>> print ("Angular diameter distance = %.1f Mpc" % (d_a))
     Angular diameter distance = 1145.4 Mpc
 
     """
@@ -303,7 +306,7 @@ def diff_comoving_volume(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> dVc = cd.diff_comoving_volume(6.0, **cosmo)
-    >>> print "dV/dz/dSolidAngle at z=6 is %.3g Mpc**3" % (dVc)
+    >>> print ("dV/dz/dSolidAngle at z=6 is %.3g Mpc**3" % (dVc))
     dV/dz/dSolidAngle at z=6 is 2.63e+10 Mpc**3
     """
     
@@ -324,7 +327,7 @@ def comoving_volume(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> Vc = cd.comoving_volume(6.0, **cosmo)
-    >>> print "Vc = %.3g Mpc**3" % (Vc)
+    >>> print ("Vc = %.3g Mpc**3" % (Vc))
     Vc = 2.16e+12 Mpc**3
 
 
@@ -332,7 +335,7 @@ def comoving_volume(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.0, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> Vc = cd.comoving_volume(6.0, **cosmo)
-    >>> print "Vc = %.3g Mpc**3" % (Vc)
+    >>> print ("Vc = %.3g Mpc**3" % (Vc))
     Vc = 1.68e+12 Mpc**3
 
     """
@@ -449,7 +452,7 @@ def age(z, use_flat=True, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> t = cd.age(6.0, **cosmo)
-    >>> print "age at z=6.0 = %.3g Gyr" % (t/cc.Gyr_s)
+    >>> print ("age at z=6.0 = %.3g Gyr" % (t/cc.Gyr_s))
     age at z=6.0 = 0.892 Gyr
 
     """
@@ -475,7 +478,7 @@ def age_flat(z, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> t = cd.age_flat(6.0, **cosmo)
-    >>> print "age at z=6.0 is %.3g Gyr" % (t/cc.Gyr_s)
+    >>> print ("age at z=6.0 is %.3g Gyr" % (t/cc.Gyr_s))
     age at z=6.0 is 0.892 Gyr
 
     """
@@ -572,7 +575,7 @@ def quick_age_function(zmax = 20., zmin = 0., zstep = 0.001,
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> agefunc = cd.quick_age_function(**cosmo)
     >>> t = agefunc(6.0)
-    >>> print "age at z=6.0 is %.3g Gyr" % (t/cc.Gyr_s)
+    >>> print ("age at z=6.0 is %.3g Gyr" % (t/cc.Gyr_s))
     age at z=6.0 is 0.892 Gyr
 
     
@@ -606,7 +609,7 @@ def quick_redshift_age_function(zmax = 20., zmin = 0., zstep = 0.001, **cosmo):
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> redfunc = cd.quick_redshift_age_function(**cosmo)
     >>> z = redfunc(1.0 * cc.Gyr_s)
-    >>> print "When age=1.0Gyr z=%.2f" % (z)
+    >>> print ("When age=1.0Gyr z=%.2f" % (z))
     When age=1.0Gyr z=5.49
 
     """
@@ -627,7 +630,7 @@ def light_travel_distance(z, z0 = 0, **cosmo):
     >>> cosmo = {'omega_M_0' : 0.3, 'omega_lambda_0' : 0.7, 'h' : 0.72}
     >>> cosmo = cd.set_omega_k_0(cosmo)
     >>> dlookback = cd.light_travel_distance(3.0, 2.0, **cosmo)
-    >>> print "Lookback distance from z=2 to 3 is %.2g Mpc" % (dlookback)
+    >>> print ("Lookback distance from z=2 to 3 is %.2g Mpc" % (dlookback))
     Lookback distance from z=2 to 3 is 3.3e+02 Mpc
     
     """
@@ -651,7 +654,7 @@ def redshift_d_light(dl, z_guess = 6.0, fmin_args={}, **cosmo):
              Current function value: 0.000112
              Iterations: 26
              Function evaluations: 52
-    >>> print "Redshift for a lookback time of 10Gyr is z=%.3f" % (z)
+    >>> print ("Redshift for a lookback time of 10Gyr is z=%.3f" % (z))
     Redshift for a lookback time of 10Gyr is z=2.025
 
     """

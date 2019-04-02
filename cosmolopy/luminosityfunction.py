@@ -13,13 +13,16 @@ import optparse
 import numpy
 import scipy.special
 
-from . import reionization as cr
-from . import distance as cd
-from . import parameters as cp
-from . import constants as cc
-from . import utils as utils
-from . import magnitudes as magnitudes
-from . saveable import Saveable
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import reionization as cr
+import distance as cd
+import parameters as cp
+import constants as cc
+import utils as utils
+import magnitudes as magnitudes
+from saveable import Saveable
 
 def mass_from_sfr(sfr):
     """Use Labbe et al. (2009) relation between stellar mass and SFR.

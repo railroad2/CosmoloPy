@@ -2,10 +2,13 @@
 """
 from __future__ import print_function, absolute_import
 import math
-
 import numpy
-from . import distance as cd
-from . import constants as cc
+
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import distance as cd
+import constants as cc
 
 """AB Magnitude zero point."""
 MAB0 = -2.5 * numpy.log10(3631.e-23)

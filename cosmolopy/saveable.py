@@ -4,7 +4,7 @@ Saveable is designed to be subclassed to create new types of objects
 that can easily be pickled and reloaded.
 """
 
-from __future__ import print_function, absolute_import
+from __future__ import print_function
 import pickle
 
 class NullWriter:

@@ -7,7 +7,7 @@ This module relies largely on power.c from Eisenstein & Hu (1999 ApJ 511 5)
 See notes in `cosmolopy.EH`.
 
 """
-from __future__ import print_function, absolute_import
+from __future__ import print_function
 import math
 import warnings
 
@@ -16,8 +16,11 @@ import scipy
 import scipy.special
 import scipy.integrate as si
 
-from . import constants as cc
-from . import density as cden
+import os, sys
+sys.path.append((os.path.dirname(__file__)))
+
+import constants as cc
+import density as cden
 
 powererror = None
 try:
@@ -920,10 +923,10 @@ def collapse_fraction(sigma_min, delta_crit, sigma_mass=0, delta=0):
     ...          'baryonic_effects' : False
     ...          } 
     >>> fc = cp.collapse_fraction(*cp.sig_del(1e4, 0, **cosmo))
-    >>> print round(fc, 4)
+    >>> print (round(fc, 4))
     0.7328
     >>> fc = cp.collapse_fraction(*cp.sig_del(1e2, 0, **cosmo))
-    >>> print round(fc, 4)
+    >>> print (round(fc, 4))
     0.8571
     
     """
