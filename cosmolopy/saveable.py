@@ -4,6 +4,7 @@ Saveable is designed to be subclassed to create new types of objects
 that can easily be pickled and reloaded.
 """
 
+from __future__ import print_function, absolute_import
 import pickle
 
 class NullWriter:
@@ -68,8 +69,8 @@ class Saveable(object):
                 pickle.dump(v, picfile)
             except (TypeError, pickle.PicklingError) as err:
                 if hasattr(self, 'verbose') and self.verbose:
-                    print "Won't pickle", k, type(v), ": "
-                    print "'", err, "'"
+                    print ("Won't pickle", k, type(v), ": ")
+                    print ("'", err, "'")
                 del sdict[k]
         return sdict
     def __getstate__(self):

@@ -6,19 +6,20 @@ parameters as a function of redshift.
 
 """
 
+from __future__ import print_function, absolute_import
 import os
 import optparse
 
 import numpy
 import scipy.special
 
-import cosmolopy.reionization as cr
-import cosmolopy.distance as cd
-import cosmolopy.parameters as cp
-import cosmolopy.constants as cc
-import cosmolopy.utils as utils
-from cosmolopy.saveable import Saveable
-import cosmolopy.magnitudes as magnitudes
+from . import reionization as cr
+from . import distance as cd
+from . import parameters as cp
+from . import constants as cc
+from . import utils as utils
+from . import magnitudes as magnitudes
+from . saveable import Saveable
 
 def mass_from_sfr(sfr):
     """Use Labbe et al. (2009) relation between stellar mass and SFR.
@@ -310,21 +311,18 @@ class LFHistory(Saveable):
                                               bounds_behavior=MStar_bounds,
                                               **extrap_args
                                               )
-        print "M*:",
-        print self._MStarfunc.extrap_string()
+        print ("M*:", self._MStarfunc.extrap_string())
 
         self._phiStarfunc = utils.Extrapolate1d(self.xobs, self.phiStar,
                                                 bounds_behavior=phiStar_bounds,
                                                 **extrap_args
                                                 )
-        print "phi*:",
-        print self._phiStarfunc.extrap_string()
+        print ("phi*:", self._phiStarfunc.extrap_string())
         self._alphafunc = utils.Extrapolate1d(self.xobs, self.alpha,
                                               bounds_behavior=alpha_bounds,
                                               **extrap_args
                                               )
-        print "alpha:",
-        print self._alphafunc.extrap_string()
+        print ("alpha:", self._alphafunc.extrap_string())
         
         self._SED = BrokenPowerlawSED(**sedParams)
         self._rQL = self._SED.iPhotonRateRatio(wavelength)
@@ -383,7 +381,7 @@ class LFHistory(Saveable):
                     'alpha':self._alphafunc(t)}
         elif self.extrap_var == 'z':
             ### FIX THIS ###
-            raise NotImplementedError, "params_t not implemented for z interps!"
+            raise NotImplementedError("params_t not implemented for z interps!")
 
     def params_z(self, z):
         """Return interp/extrapolated Schechter function parameters."""
@@ -434,7 +432,7 @@ def plotLFevo(hist=None,
         ltot = schechterCumuLM(magnitudeAB=maglim,
                                MStar=MStar, phiStar=phiStar, alpha=alpha)
 
-    print hist._MStarfunc.extrap_string()
+    print (hist._MStarfunc.extrap_string())
 
     zPlot = numpy.arange(z.min()-0.1, z_max, 0.1)
     tPlot = cd.age(zPlot, **cosmo)[0] / cc.yr_s
@@ -729,8 +727,8 @@ if __name__ == '__main__':
         options.filename = args[0]
 
     if options.filename is None:
-        print "No filename given."
-        print usage
+        print ("No filename given.")
+        print (usage)
     else:
         prefix, extension = os.path.splitext(options.filename)
     

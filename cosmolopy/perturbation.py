@@ -7,7 +7,7 @@ This module relies largely on power.c from Eisenstein & Hu (1999 ApJ 511 5)
 See notes in `cosmolopy.EH`.
 
 """
-
+from __future__ import print_function, absolute_import
 import math
 import warnings
 
@@ -16,8 +16,8 @@ import scipy
 import scipy.special
 import scipy.integrate as si
 
-import constants as cc
-import density as cden
+from . import constants as cc
+from . import density as cden
 
 powererror = None
 try:
@@ -86,12 +86,12 @@ def transfer_function_EH(k, **cosmology):
     baryonic_effects = cosmology['baryonic_effects']
     if baryonic_effects:
         if not havetffit:
-            raise ImportError, "Could not import EH.tf_fit module. Transfer function cannot be calculated."
+            raise ImportError("Could not import EH.tf_fit module. Transfer function cannot be calculated.")
         if not havepower:
-            raise ImportError, "Could not import EH.power module. Transfer function cannot be calculated."
+            raise ImportError("Could not import EH.power module. Transfer function cannot be calculated.")
     else:
         if not havepower:
-            raise ImportError, "Could not import EH.power module. Transfer function cannot be calculated."
+            raise ImportError("Could not import EH.power module. Transfer function cannot be calculated.")
 
     z_val=0
 
@@ -785,9 +785,9 @@ def virial_mass(temp, z, mu=None, **cosmology):
     ...          } 
     >>> mass = virial_mass(1e4, 6.0, **cosmo)
     >>> temp = virial_temp(mass, 6.0, **cosmo)
-    >>> print "Mass = %.3g M_sun" % mass
+    >>> print ("Mass = %.3g M_sun" % mass)
     Mass = 1.68e+08 M_sun
-    >>> print round(temp, 4)
+    >>> print (round(temp, 4))
     10000.0
 
     """

@@ -1,16 +1,17 @@
 """Routines related to the reionization history of the IGM."""
 
+from __future__ import print_function, absolute_import
 import math
 
 import numpy
 import scipy
 import scipy.integrate as si
 
-import perturbation as cp
-import distance as cd
-import constants as cc
-import density as cden
-import utils as cu
+from . import perturbation as cp
+from . import distance as cd
+from . import constants as cc
+from . import density as cden
+from . import utils as cu
 
 def delta_lambda_delta_dl(z, delta_dl, **cosmo):
     """The Lyman-alpha wavelength shift given light-travel distance.
@@ -668,7 +669,7 @@ def optical_depth_instant(z_r, x_ionH=1.0, x_ionHe=1.0, z_rHe = None,
     """
 
     if numpy.any(cden.get_omega_k_0(**cosmo) != 0):
-        raise ValueError, "Not valid for non-flat (omega_k_0 !=0) cosmology."
+        raise ValueError("Not valid for non-flat (omega_k_0 !=0) cosmology.")
 
 
     if z_rHe is not None:
@@ -682,7 +683,7 @@ def optical_depth_instant(z_r, x_ionH=1.0, x_ionHe=1.0, z_rHe = None,
         # Difference due to fully ionized He (added to tau later):
         tau_short_He = tau_short_all - tau_short_H
         if(verbose > 0) :
-            print "tau_short_He = ", tau_short_He            
+            print ("tau_short_He = ", tau_short_He)
 
     rho_crit, rho_0, n_He_0, n_H_0 = cden.baryon_densities(**cosmo)
 
@@ -696,9 +697,9 @@ def optical_depth_instant(z_r, x_ionH=1.0, x_ionHe=1.0, z_rHe = None,
     x = n_e / n_p
 
     if(verbose > 0) :
-        print "n_He/n_H = ", n_He_0 / n_H_0
-        print "x = ne/np = ", x
-        print "n_e/n_H_0 = ", n_e/n_H_0
+        print ("n_He/n_H = ", n_He_0 / n_H_0)
+        print ("x = ne/np = ", x)
+        print ("n_e/n_H_0 = ", n_e/n_H_0)
 
     H_0 = cc.H100_s * cosmo['h']
 
